@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  meu-teste-admin-minio:
+    image: quay.io/minio/minio
+    container_name: meu-teste-admin-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./minio/data:/data
+    env_file:
+      - ./minio/.env
+    networks:
+      - meu-teste-admin-local
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  meu-teste-admin-local:
+    driver: bridge
