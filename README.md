@@ -27,3 +27,7 @@ docker-compose up -d
 
 Isso iniciará o serviço MinIO, e você poderá acessá-lo nos endereços http://localhost:9000 para a API e http://localhost:9001 para o console de administração.
 
+docker logs meu-teste-admin-minio
+
+
+
