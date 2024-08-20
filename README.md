@@ -4,6 +4,8 @@ Para rodar o MinIO, siga estes passos README.md
 
 Crie o arquivo docker-compose.yml
 
+em meu-projeto-minio
+
 Crie o diretório e o arquivo de configuração:
 
 Crie o diretório /meu-projeto-minio/minio/data para armazenar os dados.
