@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  minio1:
+    image: quay.io/minio/minio
+    container_name: minio1
+    volumes:
+      - data1-1:/data1
+      - data1-2:/data2
+    env_file:
+      - ./minio/.env
+    command: server --console-address ":9001" http://minio{1...4}/data{1...2}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio2:
+    image: quay.io/minio/minio
+    container_name: minio2
+    volumes:
+      - data2-1:/data1
+      - data2-2:/data2
+    env_file:
+      - ./minio/.env
+    command: server --console-address ":9001" http://minio{1...4}/data{1...2}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio3:
+    image: quay.io/minio/minio
+    container_name: minio3
+    volumes:
+      - data3-1:/data1
+      - data3-2:/data2
+    env_file:
+      - ./minio/.env
+    command: server --console-address ":9001" http://minio{1...4}/data{1...2}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio4:
+    image: quay.io/minio/minio
+    container_name: minio4
+    volumes:
+      - data4-1:/data1
+      - data4-2:/data2
+    env_file:
+      - ./minio/.env
+    command: server --console-address ":9001" http://minio{1...4}/data{1...2}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  nginx:
+    image: nginx:1.24.0-alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    depends_on:
+      - minio1
+      - minio2
+      - minio3
+      - minio4
+
+volumes:
+  data1-1:
+  data1-2:
+  data2-1:
+  data2-2:
+  data3-1:
+  data3-2:
+  data4-1:
+  data4-2:

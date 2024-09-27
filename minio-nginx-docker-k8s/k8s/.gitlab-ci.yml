@@ -1,0 +1,16 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: docker:latest
+  script:
+    - echo "Building Docker images..."
+    # Comandos para construir suas imagens, se necessário.
+
+deploy:
+  stage: deploy
+  image: bitnami/kubectl
+  script:
+    - ./scripts/deploy.sh

@@ -1,0 +1,13 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - docker-compose -f docker-compose.yaml build
+
+test:
+  stage: test
+  script:
+    - bash scripts/test.sh
